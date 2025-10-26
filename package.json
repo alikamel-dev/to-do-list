@@ -1,6 +1,6 @@
 {
-  "name": "top-project-template",
-  "description": "A template repository for projects created with The Odin Project.",
+  "name": "to-do-list",
+  "description": "A web-based to-do list app, created as a part of my journey with The Odin Project.",
   "version": "1.0.0",
   "main": "index.js",
   "directories": {
@@ -13,21 +13,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ali-aboulsauood/TOP-Project-Template.git"
+    "url": "git+https://github.com/ali-aboulsauood/to-do-list.git"
   },
   "keywords": [
     "ali-mohammed",
     "ali-aboulsauood",
-    "template-repository",
-    "template-repo",
-    "template-github-repository",
-    "template-github-repo",
-    "github-template-repository",
-    "github-template-repo",
+    "to-do-list",
+    "todo-list",
     "the-odin-project",
     "top",
-    "the-odin-project-project-template",
-    "top-project-template",
+    "the-odin-project-to-do-list",
+    "the-odin-project-todo-list",
+    "top-to-do-list",
+    "top-todo-list",
     "html-css-js",
     "html-css-javascript",
     "html",
@@ -42,9 +40,9 @@
   "author": "ali-aboulsauood <aliaboulsauood@tutamail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ali-aboulsauood/TOP-Project-Template/issues"
+    "url": "https://github.com/ali-aboulsauood/to-do-list/issues"
   },
-  "homepage": "https://github.com/ali-aboulsauood/TOP-Project-Template#readme",
+  "homepage": "https://github.com/ali-aboulsauood/to-do-list#readme",
   "devDependencies": {
     "cross-env": "^7.0.3",
     "css-loader": "^7.1.2",
