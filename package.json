@@ -9,7 +9,11 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve --config webpack.dev.js",
     "start:open-browser": "npm start -- --open",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.prod.js"
+    "build": "cross-env NODE_ENV=production webpack --config webpack.prod.js",
+
+    "commit:all": "git add . && git commit",
+    "push": "git push origin main",
+    "commit:all:push": "npm run commit:all && npm run push"
   },
   "repository": {
     "type": "git",
