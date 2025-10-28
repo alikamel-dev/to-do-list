@@ -1,10 +1,71 @@
 /* Fonts */
 
-/*
-Place font-related at-rules (e.g. `@font-face`, `@import`) here.
+/* Junicode */
 
-For generating WOFF and WOFF2 font files with `@font-face` rules from other font file formats, Transfonter (https://www.transfonter.org/) is recommended.
-*/
+@font-face {
+  /* Junicode Regular */
+  font-family: 'Junicode';
+  src:  local('Junicode'),
+        url('assets/fonts/junicode/Junicode.woff2') format('woff2'),
+        url('assets/fonts/junicode/Junicode.woff') format('woff');
+
+  font-weight: normal;
+  font-style: normal;
+
+  font-display: swap;
+}
+
+@font-face {
+  /* Junicode Bold */
+  font-family: 'Junicode';
+  src:  local('Junicode Bold'), local('Junicode-Bold'),
+        url('assets/fonts/junicode/Junicode-Bold.woff2') format('woff2'),
+        url('assets/fonts/junicode/Junicode-Bold.woff') format('woff');
+
+  font-weight: bold;
+  font-style: normal;
+
+  font-display: swap;
+}
+
+@font-face {
+  /* Junicode Italic */
+  font-family: 'Junicode';
+  src:  local('Junicode Italic'), local('Junicode-Italic'),
+        url('assets/fonts/junicode/Junicode-Italic.woff2') format('woff2'),
+        url('assets/fonts/junicode/Junicode-Italic.woff') format('woff');
+
+  font-weight: normal;
+  font-style: italic;
+
+  font-display: swap;
+}
+
+@font-face {
+  /* Junicode Bold Italic */
+  font-family: 'Junicode';
+  src:  local('Junicode Bold Italic'), local('Junicode-BoldItalic'),
+        url('assets/fonts/junicode/Junicode-BoldItalic.woff2') format('woff2'),
+        url('assets/fonts/junicode/Junicode-BoldItalic.woff') format('woff');
+
+  font-weight: bold;
+  font-style: italic;
+
+  font-display: swap;
+}
+
+/* Bricolage Grotesque */
+
+@font-face {
+  /* Bricolage Grotesque (variable) */
+  font-family: 'Bricolage Grotesque';
+  src:  local('Bricolage Grotesque'), local('Bricolage-Grotesque'),
+        url('assets/fonts/bricolage-grotesque/subset-BricolageGrotesque.woff2') format('woff2'),
+        url('assets/fonts/bricolage-grotesque/subset-BricolageGrotesque.woff') format('woff');
+
+  /* Make the entire range of weights of the font available. */
+  font-weight: 200 800;
+}
 
 /* CSS Variables */
 :root {
