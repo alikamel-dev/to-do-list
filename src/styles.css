@@ -69,14 +69,10 @@
 
 /* CSS Variables */
 :root {
-  /* Colors */
-
-  /* Place your color variables here. */
-
   /* Fonts */
 
   /*
-  System font stacks have been taken from Modern Font Stacks: https: //www.modernfontstacks.com/
+  System font stacks have been taken from Modern Font Stacks: https://www.modernfontstacks.com/
 
   1. Junicode falls back to the "Transitional" system font stack.
   2. Bricolage Grotesque falls back to the "Neo-Grotesque" font stack.
@@ -92,6 +88,24 @@
 
   --display-font: var(--junicode), var(--native-emoji-font-stack);
   --body-font: var(--bricolage-grotesque), var(--native-emoji-font-stack);
+
+  /* Colors */
+
+  /* Colors that do not change between light and dark modes are defined here. */
+
+  --logo-color: #F76F53;
+}
+
+:root.light {
+  --background-color: #F2F0E3;
+  --foreground-color: #2E2E2E;
+  --foreground-color-secondary: #0000000D;
+  }
+
+:root.dark {
+  --background-color: #1F1F1F;
+  --foreground-color: #D1CFC0;
+  --foreground-color-secondary: #FFFFFF1A;
 }
 
 /* 
@@ -118,7 +132,7 @@ Index of Styles
 }
 
 *::selection {
-  /* Place selection style declarations here. */
+  /* Place selection styles here. */
 }
 
 button, input {
