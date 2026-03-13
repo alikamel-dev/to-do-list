@@ -1,6 +1,6 @@
 /* Fonts */
 
-/* (1) Junicode */
+/* (1) Display font - Junicode */
 
 /* Junicode Regular */
 @font-face {
@@ -50,7 +50,7 @@
   font-display: swap;
 }
 
-/* (2) Bricolage Grotesque */
+/* (2) Body font - Bricolage Grotesque */
 
 /* TODO: Replace the variable font files with the required static font files, if feasible. */
 
@@ -66,29 +66,25 @@
 
 /* CSS Variables */
 :root {
-  /* Fonts */
+  /* (1) Fonts */
 
-  /*
-  System font stacks have been taken from Modern Font Stacks: https://www.modernfontstacks.com/
+  /* (1 - A) System font stacks */
 
-  1. Junicode falls back to the "Transitional" system font stack.
-  2. Bricolage Grotesque falls back to the "Neo-Grotesque" font stack.
-  */
+  /* (1) System font stack for transitional fonts (Junicode) — see notes at https://github.com/system-fonts/modern-font-stacks?tab=readme-ov-file#transitional */
+  --display-system-font-stack: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
 
-  --junicode: "Junicode", Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
-  --bricolage-grotesque: "Bricolage Grotesque", Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
-  
-  /* System font stack to render native emojis. From https://github.com/system-fonts/modern-font-stacks?tab=readme-ov-file#emoji-support */
+  /* (2) System font stack for neo-grotesque fonts (Bricolage Grotesque) — see notes at https://github.com/system-fonts/modern-font-stacks?tab=readme-ov-file#neo-grotesque */
+  --body-system-font-stack: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
+
+  /* (3) System font stack to render native emojis — refer to https://github.com/system-fonts/modern-font-stacks?tab=readme-ov-file#emoji-support */
   --native-emoji-font-stack: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
-  /* The following are the font variables to be used in the later style rulesets. */
+  /* (1 - B) Site fonts */
 
-  --display-font: var(--junicode), var(--native-emoji-font-stack);
-  --body-font: var(--bricolage-grotesque), var(--native-emoji-font-stack);
+  --display-font: 'Junicode', var(--display-system-font-stack), var(--native-emoji-font-stack);
+  --body-font: 'Bricolage Grotesque', var(--body-system-font-stack), var(--native-emoji-font-stack);
 
-  /* Colors */
-
-  /* Colors that do not change between light and dark modes are defined here. */
+  /* (2) Colors */
 
   --logo-color: #F76F53;
 }
@@ -97,7 +93,7 @@
   --background-color: #F2F0E3;
   --foreground-color: #2E2E2E;
   --foreground-color-secondary: #0000000D;
-  }
+}
 
 :root.dark {
   --background-color: #1F1F1F;
