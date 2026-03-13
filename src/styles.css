@@ -6,8 +6,7 @@
 @font-face {
   font-family: 'Junicode';
   src:  local('Junicode'),
-        url('assets/fonts/junicode/Junicode.woff2') format('woff2'),
-        url('assets/fonts/junicode/Junicode.woff') format('woff');
+        url('assets/fonts/junicode/Junicode.woff2') format('woff2');
 
   font-weight: normal;
   font-style: normal;
@@ -19,8 +18,7 @@
 @font-face {
   font-family: 'Junicode';
   src:  local('Junicode Bold'), local('Junicode-Bold'),
-        url('assets/fonts/junicode/Junicode-Bold.woff2') format('woff2'),
-        url('assets/fonts/junicode/Junicode-Bold.woff') format('woff');
+        url('assets/fonts/junicode/Junicode-Bold.woff2') format('woff2');
 
   font-weight: bold;
   font-style: normal;
@@ -32,8 +30,7 @@
 @font-face {
   font-family: 'Junicode';
   src:  local('Junicode Italic'), local('Junicode-Italic'),
-        url('assets/fonts/junicode/Junicode-Italic.woff2') format('woff2'),
-        url('assets/fonts/junicode/Junicode-Italic.woff') format('woff');
+        url('assets/fonts/junicode/Junicode-Italic.woff2') format('woff2');
 
   font-weight: normal;
   font-style: italic;
@@ -45,8 +42,7 @@
 @font-face {
   font-family: 'Junicode';
   src:  local('Junicode Bold Italic'), local('Junicode-BoldItalic'),
-        url('assets/fonts/junicode/Junicode-BoldItalic.woff2') format('woff2'),
-        url('assets/fonts/junicode/Junicode-BoldItalic.woff') format('woff');
+        url('assets/fonts/junicode/Junicode-BoldItalic.woff2') format('woff2');
 
   font-weight: bold;
   font-style: italic;
@@ -56,12 +52,13 @@
 
 /* (2) Bricolage Grotesque */
 
+/* TODO: Replace the variable font files with the required static font files, if feasible. */
+
 /* Bricolage Grotesque (variable) */
 @font-face {
   font-family: 'Bricolage Grotesque';
   src:  local('Bricolage Grotesque'), local('Bricolage-Grotesque'),
-        url('assets/fonts/bricolage-grotesque/subset-BricolageGrotesque.woff2') format('woff2'),
-        url('assets/fonts/bricolage-grotesque/subset-BricolageGrotesque.woff') format('woff');
+        url('assets/fonts/bricolage-grotesque/subset-BricolageGrotesque.woff2') format('woff2');
 
   /* Make the entire range of weights of the font available. */
   font-weight: 200 800;
