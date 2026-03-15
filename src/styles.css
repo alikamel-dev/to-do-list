@@ -86,19 +86,23 @@
 
   /* (2) Colors */
 
-  --logo-color: #F76F53;
+  --brand-color: #F76F53;
 }
 
-:root.light {
+:root {
   --background-color: #F2F0E3;
   --foreground-color: #2E2E2E;
-  --foreground-color-secondary: #0000000D;
+
+  /* Used as the background color for secondary buttons and hover/focus states. */
+  --muted-color: rgba(0, 0, 0, 0.05);
 }
 
 :root.dark {
-  --background-color: #1F1F1F;
-  --foreground-color: #D1CFC0;
-  --foreground-color-secondary: #FFFFFF1A;
+  --primary-color: #1F1F1F;
+  --secondary-color: #D1CFC0;
+
+  /* Used as the background color for secondary buttons and hover/focus states. */
+  --muted-color: rgba(255, 255, 255, 0.05);
 }
 
 /* 
