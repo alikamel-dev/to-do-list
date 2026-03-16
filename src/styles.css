@@ -58,7 +58,7 @@
 @font-face {
   font-family: 'Bricolage Grotesque';
   src:  local('Bricolage Grotesque'), local('Bricolage-Grotesque'),
-        url('assets/fonts/bricolage-grotesque/subset-BricolageGrotesque.woff2') format('woff2');
+        url('assets/fonts/bricolage-grotesque/BricolageGrotesque-VariableFont_opsz,wdth,wght.woff2') format('woff2');
 
   /* Make the entire range of weights of the font available. */
   font-weight: 200 800;
