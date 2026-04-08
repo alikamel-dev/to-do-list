@@ -3,20 +3,217 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
+
     <!-- `viewport-fit` helps avoid display cutouts, such as touchscreen notches. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+
+    <!-- TODO: Update description. -->
 
     <meta name="author" content="Ali Mohammed"/>
     <meta name="description" content="A to-do list designed to be simple and minimal to actually help you do your tasks instead of getting into your way."/>
 
     <!-- TODO: Add Open Graph Protocol (OGP) metadata. -->
-
+    
+    <!-- TODO: Add favicons. -->
     <!-- TODO: Set `<meta name="theme-color">` using JavaScript. -->
 
     <title>Tasks - MinimaList</title>
   </head>
 
   <body>
-    
+    <!-- Inline SVGs -->
+
+    <!-- `aria-hidden="true"` ensures that all screen readers will ignore the element under all circumstances. -->
+    <svg xmlns="http://www.w3.org/2000/svg" id="inline-svgs" style="display: none;" aria-hidden="true">
+      <defs>
+        <!-- (A) Brand logos -->
+        
+        <!-- (A - 1) Brand logo (primary) - Brand color is used as the fill color, to ensure that the logo will retain the color in the case of delay or failure of loading the stylesheet. -->
+        <symbol id="minimalist-logo" viewBox="0 0 256 256" fill="#F76F53">
+          <rect width="256" height="256" fill="none"/>
+          <path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm-34.34,77.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/>
+        </symbol>
+
+        <!-- (A - 2) Brand logo (secondary)  -->
+        <symbol id="minimalist-logo-secondary" viewBox="0 0 256 256">
+          <rect width="256" height="256" fill="none"/>
+          <path d="M243.31,90.91l-128.4,128.4a16,16,0,0,1-22.62,0l-71.62-72a16,16,0,0,1,0-22.61l20-20a16,16,0,0,1,22.58,0L104,144.22l96.76-95.57a16,16,0,0,1,22.59,0l19.95,19.54A16,16,0,0,1,243.31,90.91Z"/>
+        </symbol>
+
+        <!-- (B) Theme icons -->
+
+        <!-- (B - 1) Light theme icon -->
+        <symbol id="light-theme-icon" class="theme-icon" viewBox="0 0 256 256">
+          <rect width="256" height="256" fill="none"/>
+          <path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm8,24a64,64,0,1,0,64,64A64.07,64.07,0,0,0,128,64ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/>
+        </symbol>
+
+        <!-- (B - 2) Dark theme icon -->
+        <symbol id="dark-theme-icon" class="theme-icon" viewBox="0 0 256 256">
+          <rect width="256" height="256" fill="none"/>
+          <path d="M235.54,150.21a104.84,104.84,0,0,1-37,52.91A104,104,0,0,1,32,120,103.09,103.09,0,0,1,52.88,57.48a104.84,104.84,0,0,1,52.91-37,8,8,0,0,1,10,10,88.08,88.08,0,0,0,109.8,109.8,8,8,0,0,1,10,10Z"/>
+        </symbol>
+        
+        <!-- (C) Link icons and logos -->
+        
+        <!-- (C - 1) Open in a new tab -->
+        <symbol id="opens-in-new-tab-icon" class="link-icon" viewBox="0 0 256 256">
+          <rect width="256" height="256" fill="none"/>
+          <polyline points="216 104 215.99 40.01 152 40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+          <line x1="136" y1="120" x2="216" y2="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+
+          <path d="M184,136v72a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8h72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+        </symbol>
+
+        <!-- (C - 2) GitHub brand logo -->
+        <symbol id="github-logo" class="link-icon link-logo" viewBox="0 0 24 24">
+          <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+        </symbol>
+
+        <!-- (C - 3) LinkedIn brand logo -->
+        <symbol id="linkedin-logo" class="link-icon link-logo" viewBox="0 0 128 128">
+          <path d="M116 3H12a8.91 8.91 0 00-9 8.8v104.42a8.91 8.91 0 009 8.78h104a8.93 8.93 0 009-8.81V11.77A8.93 8.93 0 00116 3zM39.17 107H21.06V48.73h18.11zm-9-66.21a10.5 10.5 0 1110.49-10.5 10.5 10.5 0 01-10.54 10.48zM107 107H88.89V78.65c0-6.75-.12-15.44-9.41-15.44s-10.87 7.36-10.87 15V107H50.53V48.73h17.36v8h.24c2.42-4.58 8.32-9.41 17.13-9.41C103.6 47.28 107 59.35 107 75z"></path>
+        </symbol>
+
+        <!-- (C - 4) X brand logo -->
+        <symbol id="x-logo" class="link-icon link-logo" viewBox="0 0 24 24">
+          <path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/>
+        </symbol>
+
+        <!-- (C - 5) Website icon -->
+        <symbol id="website-icon" class="link-icon" viewBox="0 0 24 24">
+          <path d="M16.36,14C16.44,13.34 16.5,12.68 16.5,12C16.5,11.32 16.44,10.66 16.36,10H19.74C19.9,10.64 20,11.31 20,12C20,12.69 19.9,13.36 19.74,14M14.59,19.56C15.19,18.45 15.65,17.25 15.97,16H18.92C17.96,17.65 16.43,18.93 14.59,19.56M14.34,14H9.66C9.56,13.34 9.5,12.68 9.5,12C9.5,11.32 9.56,10.65 9.66,10H14.34C14.43,10.65 14.5,11.32 14.5,12C14.5,12.68 14.43,13.34 14.34,14M12,19.96C11.17,18.76 10.5,17.43 10.09,16H13.91C13.5,17.43 12.83,18.76 12,19.96M8,8H5.08C6.03,6.34 7.57,5.06 9.4,4.44C8.8,5.55 8.35,6.75 8,8M5.08,16H8C8.35,17.25 8.8,18.45 9.4,19.56C7.57,18.93 6.03,17.65 5.08,16M4.26,14C4.1,13.36 4,12.69 4,12C4,11.31 4.1,10.64 4.26,10H7.64C7.56,10.66 7.5,11.32 7.5,12C7.5,12.68 7.56,13.34 7.64,14M12,4.03C12.83,5.23 13.5,6.57 13.91,8H10.09C10.5,6.57 11.17,5.23 12,4.03M18.92,8H15.97C15.65,6.75 15.19,5.55 14.59,4.44C16.43,5.07 17.96,6.34 18.92,8M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+        </symbol>
+
+        <!-- TODO: Add links to other profiles. -->
+      </defs>
+    </svg>
+
+    <!-- TODO: Create a "skip navigation" link. -->
+
+    <!-- TODO: Create custom tooltips. -->
+
+    <header id="page-header">
+      <!--
+      The `a` element is a child of the `h1` element and not vice versa, as this approach makes more sense from a semantic point of view.
+
+      Refer to: https://stackoverflow.com/questions/20174426/html-how-to-make-h1-h2-etc-as-links.
+      -->
+
+      <!--
+      Including text that informs users of assistive technology of the function of the link will cause it to be part of the accessible name of the parent heading, causing redundancy.
+      It is universally understood that the link inside the level 1 heading of a website leads to the homepage.
+      -->
+
+      <h1 id="page-title" class="minimalist-logo-and-wordmark">
+        <a href="/">
+          <svg xmlns="http://www.w3.org/2000/svg" class="minimalist-logo" aria-hidden="true">
+            <use href="#minimalist-logo"></use>
+          </svg>
+
+          <span class="minimalist-wordmark">
+            MinimaList
+          </span>
+        </a>
+      </h1>
+
+      <!-- TODO: Implement light/dark theme switching functionality. You will need to dynamically set the values of `#theme-toggle[aria-label]` and `#theme-toggle use[href]`. -->
+      <button type="button" id="theme-toggle" aria-label="Toggle light/dark theme">
+        <svg xmlns="http://www.w3.org/2000/svg" class="theme-icon" aria-hidden="true">
+          <use href="#dark-theme-icon"></use>
+        </svg>
+      </button>
+    </header>
+
+    <main id="page-main">
+      
+    </main>
+
+    <footer id="page-footer">
+      <div id="footer-text">
+        <section class="about-product">
+          <!-- TODO: Use the appropriate semantic elements instead of the following `span` elements used for section headings. -->
+          
+          <span class="sr-only">
+            About MinimaList
+          </span>
+
+          <span class="minimalist-logo-and-wordmark">
+            <a href="/">
+              <span class="minimalist-wordmark">
+                MinimaList
+              </span>
+            </a>
+          </span>
+
+          <div class="links-container">
+            <a href="https://www.github.com/ali-aboulsauood/to-do-list" target="_blank" rel="noopener noreferrer">
+              GitHub repository
+
+              <span class="sr-only">
+                (opens in a new tab)
+              </span>
+
+              <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <use href="#opens-in-new-tab-icon"></use>
+              </svg>
+            </a>
+          </div>
+        </section>
+
+        <section class="about-author">
+          <span class="sr-only">
+            About author
+          </span>
+
+          <div class="author-name">
+            Created with <span aria-hidden="true">❤️</span> <span class="sr-only">love</span> by
+
+            <b class="author-name">
+              Ali Mohammed
+            </b>
+          </div>
+
+          <div class="links">
+            <span class="sr-only">
+              Author website and profiles
+            </span>
+
+            <div class="links-container">
+              <a href="https://www.github.com/ali-aboulsauood" target="_blank" rel="author noopener noreferrer" aria-label="GitHub (opens in a new tab)" class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <use href="#github-logo"></use>
+                </svg>
+              </a>
+
+              <a href="https://www.linkedin.com/in/ali-k-mohammed" target="_blank" rel="author noopener noreferrer" aria-label="LinkedIn (opens in a new tab)" class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <use href="#linkedin-logo"></use>
+                </svg>
+              </a>
+
+              <a href="https://www.x.com/AliMohamme62183" target="_blank" rel="author noopener noreferrer" aria-label="X (formerly Twitter) (opens in a new tab)" class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <use href="#x-logo"></use>
+                </svg>
+              </a>
+
+              <a href="https://ali-aboulsauood.github.io/homepage" target="_blank" rel="author noopener noreferrer" aria-label="Website (opens in a new tab)" class="icon">
+                <!-- Website icon appears smaller than other icons, hence the upscaling. -->
+                <svg xmlns="http://www.w3.org/2000/svg" style="transform: scale(1.15)" aria-hidden="true">
+                  <use href="#website-icon"></use>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div id="footer-illustration">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <use href="#minimalist-logo-secondary"></use>
+        </svg>
+      </div>
+    </footer>
   </body>
 </html>
