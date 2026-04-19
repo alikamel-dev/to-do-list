@@ -84,76 +84,284 @@
   --display-font: 'Junicode', var(--display-system-font-stack), var(--native-emoji-font-stack);
   --body-font: 'Bricolage Grotesque', var(--body-system-font-stack), var(--native-emoji-font-stack);
 
+  /* Make the computed value of `1rem` equal to `10px`, without overriding the user-preferred font size */
+  font-size: 62.5%;
+
   /* (2) Colors */
 
   --brand-color: #F76F53;
-}
 
-:root {
   --background-color: #F2F0E3;
   --foreground-color: #2E2E2E;
 
   /* Used as the background color for secondary buttons and hover/focus states. */
   --muted-color: rgba(0, 0, 0, 0.05);
+
+  /* (3) Other */
+
+  --default-border: 1px solid var(--brand-color);
+  --default-border-radius: 4px;
 }
 
 :root.dark {
-  --primary-color: #1F1F1F;
-  --secondary-color: #D1CFC0;
+  /* (2) Colors */
+
+  --background-color: #1F1F1F;
+  --foreground-color: #D1CFC0;
 
   /* Used as the background color for secondary buttons and hover/focus states. */
-  --muted-color: rgba(255, 255, 255, 0.05);
+  --muted-color: rgba(255, 255, 255, 0.15);
 }
-
-/* 
-Index of Styles
----------------
-
-(0) General styles
-(1) Header styles
-(2) Main styles
-(3) Footer styles
-*/
 
 /* (0) General styles */
 
 *, *::before, *::after {
   box-sizing: border-box;
-
-  margin: 0;
-  padding: 0;
 }
 
-*:focus, *:focus-visible {
+*:not(dialog) {
+  margin: 0;
+}
+
+*:focus {
   outline: none;
 }
 
-*::selection {
-  /* Place selection styles here. */
+*:focus-visible {
+  outline: 2px solid var(--foreground-color);
+  outline-offset: 2px;
+  
+  border-radius: var(--default-border-radius);
 }
 
-button, input {
+*::selection {
+  background-color: var(--foreground-color);
+  color: var(--background-color);
+}
+
+*:disabled {
+  cursor: not-allowed;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  font: inherit;
+  color: var(--foreground-color);
+
+  border-radius: var(--default-border-radius);
+}
+
+.minimalist-logo-and-wordmark a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:not(:is(.icon)):hover, button:hover {
+  background-color: var(--muted-color);
+}
+
+a.icon:hover {
+  filter: brightness(1.25);
+}
+
+a.icon-with-text, a[target="_blank"] {
+  display: flex;
+  align-items: center;
+
+  gap: 0.15em;
+}
+
+b {
+  /* The specification does not specify default styles for the `b` element. */  
+  font-weight: bold;
+}
+
+button, input, textarea, select {
   appearance: none;
+  background: none;
 
   border: none;
+  border-radius: var(--default-border-radius);
+
+  padding: none;
+
   outline: none;
 
   font: inherit;
 }
 
+img, canvas, picture, svg, video {
+  display: block;
+
+  max-width: 100%;
+}
+
+svg {
+  aspect-ratio: 1 / 1;
+  width: 0.85em;
+  height: auto;
+
+  fill: currentColor;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--display-font);
+
+  /* Baseline: Newly Available */
+  text-wrap: balance;
+}
+
+p {
+  /* Baseline: Newly Available */
+  text-wrap: pretty;
+}
+
+.button-link-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inverted-color-scheme {
+  background-color: var(--foreground-color);
+  color: var(--background-color);
+}
+
+.inverted-color-scheme a {
+  color: var(--brand-color);
+}
+
+.inverted-color-scheme a.icon {
+  color: var(--background-color);
+}
+
+:root.dark .inverted-color-scheme a {
+  /* Brand color not used as it has low contrast with the background */
+  color: var(--background-color);
+}
+
+.sr-only {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  padding: 0;
+  margin: -1px;
+  border: 0;
+
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+/* Render text with anti-aliasing. From https://github.com/system-fonts/modern-font-stacks?tab=readme-ov-file#anti-aliasing */
 html {
-  /* Render text with anti-aliasing. From https: //github.com/system-fonts/modern-font-stacks?tab=readme-ov-file#anti-aliasing */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  
+  display: flex;
+  flex-direction: column;
+
+  font-family: var(--body-font);
+  font-size: clamp(1rem, 0.75rem + 1.5vw, 2rem);
+
+  line-height: 1.5;
+
+  /* `word-wrap` has wider browser support than its synonym `overflow-wrap`. */
+  word-wrap: break-word;
+
+  background-color: var(--background-color);
+  color: var(--foreground-color);
+
+  height: 100vh;
+}
+
+body > * {
+  padding: 8px 0.5%;
 }
 
 /* (1) Header styles */
 
-/* (2) Main styles */
+body > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-/* (3) Footer styles */
+  border-bottom: var(--default-border);
 
+  /* Vertically aligns other header elements so that they are roughly on the same horizontal level as the center of the header logo */
+  --margin-top: 1.6px;
+}
+
+body > header svg {
+  aspect-ratio: 1 / 1;
+
+  fill: var(--brand-color);
+}
+
+.minimalist-logo-and-wordmark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Prevents the wordmark from being centered when the logo is not present */
+  width: fit-content;
+
+  gap: 0.25em;
+
+  color: var(--brand-color);
+}
+
+.minimalist-logo-and-wordmark:not(:is(.no-logo)) a {
+  padding-right: 0.2em;
+}
+
+.minimalist-logo {
+  width: 1.75em;
+  height: auto;
+}
+
+.minimalist-wordmark {
+  font-family: var(--body-font);
+  font-weight: bold;
+
+  margin-top: var(--margin-top);
+}
+
+body > header .minimalist-wordmark {
+  /* Brand color not used in light mode, as it has poor color contrast with the background. */
+  color: var(--foreground-color);
+}
+
+:root.dark .minimalist-wordmark {
+  color: inherit;
+}
+
+#page-title {
+  font-size: 1.5em;
+}
+
+body > header button {
+  padding: 0.25%;
+}
+
+body > header button > img, body > header button > svg {
+  width: 1.75em;
+  
+  margin-top: var(--margin-top);
+}

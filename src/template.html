@@ -41,6 +41,8 @@
         <!-- TODO: Replace SVGs that do not need to be inlined with SVG files. -->
 
         <!-- (A) Brand logos -->
+
+        <!-- TODO: Use an external SVG file to represent brand logo (primary). -->
         
         <!-- (A - 1) Brand logo (primary) - Brand color is used as the fill color, to ensure that the logo will retain the color in the case of delay or failure of loading the stylesheet. -->
         <symbol id="minimalist-logo" viewBox="0 0 256 256" fill="#F76F53">
@@ -120,7 +122,9 @@
       -->
 
       <h1 id="page-title" class="minimalist-logo-and-wordmark">
-        <a href="/">
+        <!-- Class `icon-with-text` is not assigned to links that open in a new tab, as these can be selected with `a[target="blank"]`. -->
+
+        <a href="/" class="icon-with-text">
           <svg xmlns="http://www.w3.org/2000/svg" class="minimalist-logo" aria-hidden="true">
             <use href="#minimalist-logo"></use>
           </svg>
@@ -132,18 +136,20 @@
       </h1>
 
       <!-- TODO: Implement light/dark theme switching functionality. You will need to dynamically set the values of `#theme-toggle[aria-label]` and `#theme-toggle use[href]`. -->
-      <button type="button" id="theme-toggle" aria-label="Toggle light/dark theme">
-        <svg xmlns="http://www.w3.org/2000/svg" class="theme-icon" aria-hidden="true">
-          <use href="#dark-theme-icon"></use>
-        </svg>
-      </button>
+      <div class="button-link-row">
+        <button type="button" id="theme-toggle" aria-label="Toggle light/dark theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="theme-icon" aria-hidden="true">
+            <use href="#dark-theme-icon"></use>
+          </svg>
+        </button>
+      </div>
     </header>
 
     <main id="page-main">
       
     </main>
 
-    <footer id="page-footer">
+    <footer id="page-footer" class="inverted-color-scheme">
       <div id="footer-text">
         <section class="about-product">
           <!-- TODO: Use the appropriate semantic elements instead of the following `span` elements used for section headings. -->
@@ -152,7 +158,7 @@
             About MinimaList
           </span>
 
-          <span class="minimalist-logo-and-wordmark">
+          <span class="minimalist-logo-and-wordmark no-logo">
             <a href="/">
               <span class="minimalist-wordmark">
                 MinimaList
