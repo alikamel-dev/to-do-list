@@ -189,7 +189,7 @@ button, input, textarea, select {
   border: none;
   border-radius: var(--default-border-radius);
 
-  padding: none;
+  padding: 0;
 
   outline: none;
 
@@ -364,6 +364,12 @@ body > * {
   width: 1.75em;
   
   margin-top: var(--margin-top);
+}
+
+#page-header .button-link-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* (2) Main styles */
