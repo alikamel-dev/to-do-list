@@ -89,6 +89,8 @@
 
   /* (2) Colors */
 
+  color-scheme: light dark;
+
   --brand-color: #F76F53;
 
   --background-color: #F2F0E3;
@@ -461,4 +463,42 @@ main {
 
 #page-footer #footer-illustration > svg {
   transform: scale(19) translate(-30%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #1F1F1F;
+    --foreground-color: #D1CFC0;
+    
+    /* Used as the background color for secondary buttons and hover/focus states. */
+    --muted-color: rgba(255, 255, 255, 0.15);
+  }
+
+  :root .inverted-color-scheme a {
+    /* Brand color not used as it has low contrast with the background */
+    color: var(--background-color);
+  }
+
+  :root .minimalist-wordmark {
+    color: inherit;
+  }
+
+  :root.light {
+    --brand-color: #F76F53;
+    
+    --background-color: #F2F0E3;
+    --foreground-color: #2E2E2E;
+  
+    /* Used as the background color for secondary buttons and hover/focus states. */
+    --muted-color: rgba(0, 0, 0, 0.05);
+  }
+
+  :root.light .inverted-color-scheme a:not(:is(.icon)) {
+    color: var(--brand-color);
+  }
+
+  :root.light #page-header .minimalist-wordmark {
+    /* Brand color not used in light mode, as it has poor color contrast with the background. */
+    color: var(--foreground-color);
+  }
 }

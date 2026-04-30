@@ -7,6 +7,9 @@
     <!-- `viewport-fit` helps avoid display cutouts, such as touchscreen notches. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 
+    <!-- Helps reduce chances of Flash of Incorrect Theme (FOIT). -->
+    <meta name="color-scheme" content="light dark"/>
+
     <!-- TODO: Update description. -->
 
     <meta name="author" content="Ali Mohammed"/>
@@ -30,6 +33,12 @@
     <!-- TODO: Set `<meta name="theme-color">` using JavaScript. -->
 
     <title>Tasks - MinimaList</title>
+
+    <!-- Applies the saved user-preferred theme in the user agent's local storage before the CSS is rendered, preventing Flash of Incorrect Theme (FOIT). -->
+    <script type="text/javascript" id="apply-user-preferred-theme">
+      const userPreferredTheme = localStorage.getItem('userPreferredTheme');
+      document.documentElement.classList.add(userPreferredTheme);
+    </script>
   </head>
 
   <body>
@@ -137,7 +146,7 @@
 
       <!-- TODO: Implement light/dark theme switching functionality. You will need to dynamically set the values of `#theme-toggle[aria-label]` and `#theme-toggle use[href]`. -->
       <div class="button-link-row">
-        <button type="button" id="theme-toggle" aria-label="Toggle light/dark theme">
+        <button type="button" id="theme-toggle" aria-label="Switch to Dark Theme">
           <svg xmlns="http://www.w3.org/2000/svg" class="theme-icon" aria-hidden="true">
             <use href="#dark-theme-icon"></use>
           </svg>
