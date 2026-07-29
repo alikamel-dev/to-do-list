@@ -16,11 +16,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ali-aboulsauood/to-do-list.git"
+    "url": "git+https://github.com/alikamel-dev/to-do-list.git"
   },
   "keywords": [
-    "ali-mohammed",
-    "ali-aboulsauood",
+    "ali-kamel",
+    "alikamel-dev",
     "to-do-list",
     "todo-list",
     "the-odin-project",
@@ -40,12 +40,12 @@
     "webpack-html-css-js",
     "webpack-html-css-javascript"
   ],
-  "author": "ali-aboulsauood <aliaboulsauood@tutamail.com>",
+  "author": "alikamel-dev <ali.kamel.ali.2004@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ali-aboulsauood/to-do-list/issues"
+    "url": "https://github.com/alikamel-dev/to-do-list/issues"
   },
-  "homepage": "https://github.com/ali-aboulsauood/to-do-list#readme",
+  "homepage": "https://github.com/alikamel-dev/to-do-list#readme",
   "devDependencies": {
     "cross-env": "^7.0.3",
     "css-loader": "^7.1.2",
