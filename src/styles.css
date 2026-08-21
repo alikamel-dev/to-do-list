@@ -1,5 +1,7 @@
 /* Fonts */
 
+/* TODO: Remove unneeded fonts. */
+
 /* (1) Display font - Junicode */
 
 /* Junicode Regular */
@@ -104,7 +106,7 @@
   --default-border: 1px solid var(--brand-color);
   --default-border-radius: 4px;
 
-  --default-transition-property: background-color, color, border-color;
+  --default-transition-property: background-color, color, border-color, outline-color;
   --default-transition-duration: 0.3s;
   --default-transition-timing-function: ease-in-out;
 
@@ -130,6 +132,9 @@
   transition-property: var(--default-transition-property);
   transition-duration: var(--default-transition-duration);
   transition-timing-function: var(--default-transition-timing-function);
+
+  /* Allows transitions of `outline-color` to play correctly. */
+  outline-color: transparent;
 }
 
 *:not(dialog) {
@@ -137,7 +142,7 @@
 }
 
 *:focus {
-  outline: none;
+  outline-color: transparent;
 }
 
 *:focus-visible {
@@ -145,6 +150,10 @@
   outline-offset: 2px;
   
   border-radius: var(--default-border-radius);
+}
+
+.inverted-color-scheme *:focus-visible {
+  outline-color: var(--background-color);
 }
 
 *::selection {
