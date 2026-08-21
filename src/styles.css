@@ -105,13 +105,6 @@
 
   --default-border: 1px solid var(--brand-color);
   --default-border-radius: 4px;
-
-  --default-transition-property: background-color, color, border-color, outline-color;
-  --default-transition-duration: 0.3s;
-  --default-transition-timing-function: ease-in-out;
-
-  --interactive-item-color-transition-timing-function-hover: ease-out;
-  --interactive-item-color-transition-timing-function-unhover: ease-in;
 }
 
 :root.dark {
@@ -129,9 +122,10 @@
 *, *::before, *::after {
   box-sizing: border-box;
 
-  transition-property: var(--default-transition-property);
-  transition-duration: var(--default-transition-duration);
-  transition-timing-function: var(--default-transition-timing-function);
+  /* Default values for transition properties that may be overridden in subsequent rulesets. */
+  transition-property: background-color, color, border-color, outline-color;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
 
   /* Allows transitions of `outline-color` to play correctly. */
   outline-color: transparent;
@@ -235,7 +229,7 @@ button, input, textarea, select {
 }
 
 a, button, input, textarea, select {
-  transition-timing-function: var(--interactive-item-color-transition-timing-function-hover);
+  transition-timing-function: ease-out;
 }
 
 a:hover, a:focus-visible,
@@ -243,7 +237,7 @@ button:hover, button:focus-visible,
 input:hover, input:focus-visible,
 textarea:hover, textarea:focus-visible,
 select:hover, select:focus-visible {
-  transition-timing-function: var(--interactive-item-color-transition-timing-function-unhover);
+  transition-timing-function: ease-in;
 }
 
 img, canvas, picture, svg, video {
@@ -447,7 +441,7 @@ main {
 #footer-text {
   gap: 16px;
 
-  font-size: 1.85rem;
+  font-size: 1.85rem;;
 
   padding-top: 14px;
   padding-bottom: 18px;
