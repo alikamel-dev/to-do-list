@@ -188,15 +188,31 @@ a:not(:is(.icon)):hover, button:hover {
   background-color: var(--muted-color);
 }
 
-a.icon:hover {
-  filter: brightness(1.25);
-}
-
 a.icon-with-text, a[target="_blank"] {
   display: flex;
   align-items: center;
 
   gap: 0.15em;
+}
+
+/* TODO: Use `attr(data-original-color)` when browser support is suitable. */
+
+#page-footer .links-container > a:hover,
+#page-footer .links-container > a:focus-visible {
+  color: var(--original-color, var(--brand-color));
+  outline-color: var(--original-color, var(--brand-color));
+}
+
+a:has(svg > use[href*="github"]) {
+  --original-color: #181717;
+}
+
+a:has(svg > use[href*="bluesky"]) {
+  --original-color: #1185FE;
+}
+
+a:has(svg > use[href*="mastodon"]) {
+  --original-color: #6364FF;
 }
 
 b {
