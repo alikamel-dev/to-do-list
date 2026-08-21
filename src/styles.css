@@ -1,7 +1,5 @@
 /* Fonts */
 
-/* TODO: Remove unneeded fonts. */
-
 /* (1) Display font - Junicode */
 
 /* Junicode Regular */
@@ -53,8 +51,6 @@
 }
 
 /* (2) Body font - Bricolage Grotesque */
-
-/* TODO: Replace the variable font files with the required static font files, if feasible. */
 
 /* Bricolage Grotesque (variable) */
 @font-face {
@@ -188,8 +184,6 @@ a.icon-with-text, a[target="_blank"] {
 
   gap: 0.15em;
 }
-
-/* TODO: Use `attr(data-original-color)` when browser support is suitable. */
 
 #page-footer .links-container > a:hover,
 #page-footer .links-container > a:focus-visible {
