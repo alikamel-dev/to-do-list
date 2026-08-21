@@ -1,7 +1,7 @@
 # To-Do List
 
 > [!IMPORTANT]
-> This project is still **under development**. You can clone the repository on your local machine if you wish, but the project is currently expected to contain bugs and/or lack essential features. The project will be published using [GitHub Pages](pages.github.com) when it is finished.
+> This project is still **under development**. You can clone the repository on your local machine or visit the [GitHub Pages site](https://alikamel-dev.github.io/to-do-list) if you wish, but the project is currently expected to contain bugs and/or lack essential features.
 
 A web-based to-do list application.
 
