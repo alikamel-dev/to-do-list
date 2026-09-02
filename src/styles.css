@@ -198,8 +198,20 @@ a.icon-with-text, a[target="_blank"] {
   outline-color: var(--original-color, var(--brand-color));
 }
 
+:root.dark #page-footer .links-container > a:hover, :root.dark #page-footer .links-container > a:focus-visible {
+  /* The brand color has poor contrast with the footer background color in dark theme. */
+
+  color: var(--original-color, var(--background-color));
+  outline-color: var(--original-color, var(--background-color));
+}
+
 a:has(svg > use[href*="github"]) {
   --original-color: #181717;
+}
+
+:root.light .inverted-color-scheme a:has(svg > use[href*="github"]) {
+  /* The original GitHub logo color has poor contrast with the footer background color in light theme. */
+  --original-color: #FFFFFF;
 }
 
 a:has(svg > use[href*="bluesky"]) {
