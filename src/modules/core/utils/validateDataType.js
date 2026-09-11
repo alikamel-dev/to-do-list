@@ -22,4 +22,8 @@ const validateDataType = (data, dataName, expectedDataTypes) => {
   return data;
 }
 
-export { getDataTypeOf, validateDataType };
+const validateDataTypeOfArrayValues = (array, arrayName, expectedDataTypes) => {
+  array.forEach((value, index) => validateDataType(value, `${arrayName}[${index}]`, expectedDataTypes));
+}
+
+export { getDataTypeOf, validateDataType, validateDataTypeOfArrayValues };
