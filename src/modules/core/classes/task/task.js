@@ -1,7 +1,8 @@
 import { TaskPrototype } from "../base/base";
 
-import { getDataTypeOf, validateDataType } from "../../utils/validateDataType";
+import { getDataTypeOf, validateDataType, validateDataTypeOfArrayValues } from "../../utils/validateDataType";
 import { markAsCode } from "../../utils/formatCode";
+import { Subtask } from "./subtask";
 
 const Task = class extends TaskPrototype {
   // Private elements commented out are those inherited from `TaskPrototype`.
@@ -87,7 +88,7 @@ const Task = class extends TaskPrototype {
     const subtasksArray = validateDataType(newSubtasks, 'subtasks', ['Array', 'Null']);
 
     if (subtasksArray)
-      subtasksArray.forEach((subtask, subtaskIndex) => validateDataType(subtask, `subtasks[${subtaskIndex}]`, ['Subtask']));
+      validateDataTypeOfArrayValues(subtasksArray, 'subtasks', [Subtask.name]);
 
     this.#subtasks = subtasksArray;
   }
