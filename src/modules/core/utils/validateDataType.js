@@ -23,6 +23,8 @@ const validateDataType = (data, dataName, expectedDataTypes) => {
 }
 
 const validateDataTypeOfArrayValues = (array, arrayName, expectedDataTypes) => {
+  validateDataType(array, arrayName, ['Array']);
+
   array.forEach((value, index) => validateDataType(value, `${arrayName}[${index}]`, expectedDataTypes));
 }
 
