@@ -2,7 +2,8 @@ import { TaskPrototype } from "../base/base";
 
 import { getDataTypeOf, validateDataType, validateDataTypeOfArrayValues } from "../../utils/validateDataType";
 import { markAsCode } from "../../utils/formatCode";
-import { Subtask } from "./subtask";
+
+import PubSub from "pubsub-js";
 
 const Task = class extends TaskPrototype {
   // Private elements commented out are those inherited from `TaskPrototype`.
@@ -17,13 +18,15 @@ const Task = class extends TaskPrototype {
 
   #subtasks;
 
+  #tasklist;
+
   // #isCompleted;
 
-  constructor(title, description = null, dueDate = null, priority = null, notes = null, subtasks = null) {
-    super(title);
+  constructor(title, description = null, dueDate = null, priority = null, notes = null, subtasks = null, tasklist = null) {
+    super();
 
     // `Object.assign` invokes setters on the target object when overwriting existing properties. This is intentional, to enforce argument validation on instantiation.
-    Object.assign(this, { description, dueDate, priority, notes, subtasks });
+    Object.assign(this, { title, description, dueDate, priority, notes, subtasks, tasklist });
 
     // `Object.assign` does not perform deep cloning of objects, which is acceptable for this class.
 
@@ -33,7 +36,7 @@ const Task = class extends TaskPrototype {
 
   // Makes a call of `Object.prototype.toString.call` on an instance of `Task` return `[Object Task]`. Required for type validation.
   get [Symbol.toStringTag]() {
-    return Task.name;
+    return 'Task';
   }
 
   // Accessors
@@ -61,7 +64,7 @@ const Task = class extends TaskPrototype {
 
     // Validate that `newPriority` represents an integer number.
     if (getDataTypeOf(newPriority) === 'Number' && !Number.isInteger(newPriority))
-      throw new TypeError(`priority can only be represented by a ${markAsCode(Number.name)} representing an integer.`);
+      throw new TypeError(`priority can only be represented by a ${markAsCode('Number')} representing an integer.`);
 
     // `Number.isInteger` returns `true` for some floating point numbers. Refer to https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger#description
     this.#priority = Math.trunc(newPriority);
@@ -88,7 +91,7 @@ const Task = class extends TaskPrototype {
     const subtasksArray = validateDataType(newSubtasks, 'subtasks', ['Array', 'Null']);
 
     if (subtasksArray)
-      validateDataTypeOfArrayValues(subtasksArray, 'subtasks', [Subtask.name]);
+      validateDataTypeOfArrayValues(subtasksArray, 'subtasks', ['Subtask']);
 
     this.#subtasks = subtasksArray;
   }

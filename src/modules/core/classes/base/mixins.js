@@ -10,7 +10,10 @@ const newMixinError = (Mixin) => {
   return new TypeError(`Mixin ${markAsCode(Mixin.name)} can only be instantiated as a base class.`);
 }
 
-// `super(...arguments)` is used in the constructors for the following mixins to ensure that the base class constructor is called with any arguments it needs.
+// `super(...arguments)` was used in the constructors for the following mixins to ensure that the base class constructor is called with any arguments it needs, but it led to incorrect argument assignment.
+// The solution is to make mixin constructors have no arguments, with private fields that should have the same value for all objects being initialized with this value within mixin constructors, and other private fields being initialized using setters in the inheriting classes instead of the mixins.
+
+// Read more in section "Constructors and Initialization" of the following article: https://justinfagnani.com/2015/12/21/real-mixins-with-javascript-classes/.
 
 // Mixin for ID field
 const idMixin = (Base = class {}) => class IdMixin extends Base {
@@ -20,7 +23,7 @@ const idMixin = (Base = class {}) => class IdMixin extends Base {
     if (new.target === IdMixin)
       throw newMixinError(IdMixin);
 
-    super(...arguments);
+    super();
 
     this.#id = crypto.randomUUID();
   }
@@ -32,13 +35,11 @@ const idMixin = (Base = class {}) => class IdMixin extends Base {
 const titleMixin = (Base = class {}) => class TitleMixin extends Base {
   #title;
 
-  constructor(title) {
+  constructor() {
     if (new.target === TitleMixin)
       throw newMixinError(TitleMixin);
 
-    super(...arguments);
-
-    this.title = title;
+    super();
   }
 
   get title() {
@@ -54,13 +55,11 @@ const titleMixin = (Base = class {}) => class TitleMixin extends Base {
 const descriptionMixin = (Base = class {}) => class DescriptionMixin extends Base {
   #description;
 
-  constructor(description = null) {
+  constructor() {
     if (new.target === DescriptionMixin)
       throw newMixinError(DescriptionMixin);
 
-    super(...arguments);
-
-    this.description = description;
+    super();
   }
 
   get description() {
@@ -80,7 +79,7 @@ const isCompleteMixin = (Base = class {}) => class IsCompleteMixin extends Base 
     if (new.target === IsCompleteMixin)
       throw newMixinError(IsCompleteMixin);
 
-    super(...arguments);
+    super();
 
     this.isComplete = false;
   }

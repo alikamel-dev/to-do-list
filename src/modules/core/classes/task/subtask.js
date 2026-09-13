@@ -9,7 +9,12 @@ const Subtask = class extends SubtaskPrototype {
   // #isComplete;
 
   constructor(title) {
-    super(title);
+    super();
+
+    // `Object.assign` invokes setters on the target object when overwriting existing properties. This is intentional, to enforce argument validation on instantiation.
+    Object.assign(this, { title });
+
+    // `Object.assign` does not perform deep cloning of objects, which is acceptable for this class.
 
     // Make class and objects instantiated from it immutable except for changing values of writable properties.
     Object.seal(this);
@@ -17,7 +22,7 @@ const Subtask = class extends SubtaskPrototype {
 
   // Makes a call of `Object.prototype.toString.call` on an instance of `Subtask` return `[Object Subtask]`. Required for type validation.
   get [Symbol.toStringTag]() {
-    return Subtask.name;
+    return 'Subtask';
   }
 }
 
