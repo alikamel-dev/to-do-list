@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" prefix="og: https://ogp.me/ns#">
+<html lang="en" prefix="og: https://ogp.me/ns#" class="light">
   <head>
     <meta charset="UTF-8"/>
 
@@ -9,8 +9,6 @@
 
     <!-- Helps reduce chances of Flash of Incorrect Theme (FOIT). -->
     <meta name="color-scheme" content="light dark"/>
-
-    <!-- TODO: Set `<meta name="theme-color">` using JavaScript. -->
 
     <meta name="author" content="Ali Kamel"/>
     <meta name="description" content="A to-do list designed to be simple and minimal to actually help you do your tasks instead of getting into your way."/>
@@ -35,8 +33,12 @@
 
     <!-- Applies the saved user-preferred theme in the user agent's local storage before the CSS is rendered, preventing Flash of Incorrect Theme (FOIT). -->
     <script type="text/javascript" id="apply-user-preferred-theme">
+      const availableThemes = [ 'light', 'dark' ];
       const userPreferredTheme = localStorage.getItem('userPreferredTheme');
-      document.documentElement.classList.add(userPreferredTheme);
+      
+      // Prevent overriding of the default value of the `class` attribute if the value used for `userPreferredTheme` is not one of the valid values.
+      if (availableThemes.includes(userPreferredTheme))
+        document.documentElement.className = userPreferredTheme;
     </script>
   </head>
 
@@ -125,7 +127,7 @@
       </h1>
 
       <div class="button-link-row">
-        <button type="button" id="theme-toggle" aria-label="Switch to Dark Theme">
+        <button type="button" id="theme-toggle" aria-label="Switch to dark theme">
           <svg xmlns="http://www.w3.org/2000/svg" class="theme-icon" aria-hidden="true">
             <use href="#dark-theme-icon"></use>
           </svg>
