@@ -1,7 +1,7 @@
 import { TaskPrototype } from "../base/base";
 
-import { getDataTypeOf, validateDataType, validateDataTypeOfArrayValues } from "../../utils/validateDataType";
-import { markAsCode } from "../../utils/formatCode";
+import { getDataTypeOf, validateDataType, validateDataTypeOfArrayValues } from "../../../utils/validateDataType";
+import { markAsCode } from "../../../utils/formatCode";
 
 import PubSub from "pubsub-js";
 import { topic_taskAddedTo, topic_taskRemovedFrom } from "../topics";

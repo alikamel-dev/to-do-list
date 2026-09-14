@@ -1,5 +1,5 @@
-import { markAsCode } from "../../utils/formatCode";
-import { validateDataType } from "../../utils/validateDataType";
+import { markAsCode } from "../../../utils/formatCode";
+import { validateDataType } from "../../../utils/validateDataType";
 
 // Mixins for shared functionality across classes
 

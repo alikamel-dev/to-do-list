@@ -1,4 +1,4 @@
-import { validateDataType } from "../utils/validateDataType";
+import { validateDataType } from "../../utils/validateDataType";
 
 // Constants and functions for PubSub topics.
 

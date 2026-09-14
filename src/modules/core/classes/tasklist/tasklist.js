@@ -1,4 +1,4 @@
-import { validateDataType, validateDataTypeOfArrayValues } from "../../utils/validateDataType";
+import { validateDataType, validateDataTypeOfArrayValues } from "../../../utils/validateDataType";
 import { TasklistPrototype } from "../base/base";
 
 import PubSub from "pubsub-js";
