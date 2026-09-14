@@ -4,6 +4,7 @@ import { getDataTypeOf, validateDataType, validateDataTypeOfArrayValues } from "
 import { markAsCode } from "../../utils/formatCode";
 
 import PubSub from "pubsub-js";
+import { topic_taskAddedTo, topic_taskRemovedFrom } from "../topics";
 
 const Task = class extends TaskPrototype {
   // Private elements commented out are those inherited from `TaskPrototype`.
@@ -94,6 +95,52 @@ const Task = class extends TaskPrototype {
       validateDataTypeOfArrayValues(subtasksArray, 'subtasks', ['Subtask']);
 
     this.#subtasks = subtasksArray;
+  }
+
+  // Accessors for tasklist
+
+  get tasklist() {
+    return this.#tasklist;
+  }
+
+  get isInATasklist() {
+    // This function is called by the `tasklist` setter, which is used in the constructor before `this.#tasklist` is assigned a value.
+    return (this.#tasklist) && (this.#tasklist !== null);
+  }
+
+  #publishTaskAddition() {
+    if (!this.isInATasklist)
+      return;
+
+    PubSub.publishSync(topic_taskAddedTo(this.#tasklist), this);
+  }
+
+  #publishTaskRemoval() {
+    if (!this.isInATasklist)
+      return;
+
+    PubSub.publishSync(topic_taskRemovedFrom(this.#tasklist), this);
+  }
+
+  set tasklist(newTasklist) {
+    // Validate the data type of `newTasklist` first before making any changes
+    validateDataType(newTasklist, 'tasklist', ['Tasklist', 'Null']);
+
+    // Prevents unnecessary publishing of topics
+    if (this.#tasklist === newTasklist)
+      return;
+
+    // `publishSync` used instead of `publish` as the latter (asynchronous) prevents subscribers from adding or removing tasks.
+
+    this.#publishTaskRemoval();
+
+    this.#tasklist = newTasklist;
+
+    this.#publishTaskAddition();
+  }
+
+  removeFromCurrentTasklist() {
+    this.tasklist = null;
   }
 }
 
