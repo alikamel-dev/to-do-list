@@ -1,18 +1,25 @@
 import { toggleThemeButton, userPreferredThemeLocalStorageItem } from "./_cache";
-import { changeTheme, toggleTheme } from "./changeTheme";
+import { changeTheme, toggleTheme, updateThemeRelatedElements } from "./changeTheme";
 
+// (1) Change theme color on pressing the theme toggle button, and make it the user preferred theme.
 toggleThemeButton.addEventListener('click', () => toggleTheme(true));
 
-const isPreferredColorSchemeDarkMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+const prefersDarkColorSchemeMediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
 
-const changeThemeBasedOnPreferredColorScheme = (event = isPreferredColorSchemeDarkMediaQuery) => {
-  if (localStorage.getItem(userPreferredThemeLocalStorageItem))
-    return;
-
-  const newTheme = event.matches ? 'dark' : 'light';
+const changeThemeBasedOnPreferredColorScheme = (prefersDarkColorSchemeEvent = prefersDarkColorSchemeMediaQueryList) => {
+  const newTheme = prefersDarkColorSchemeEvent.matches ? 'dark' : 'light';
 
   changeTheme(newTheme);
 }
 
-document.addEventListener('DOMContentLoaded', () => changeThemeBasedOnPreferredColorScheme());
-isPreferredColorSchemeDarkMediaQuery.addEventListener('change', changeThemeBasedOnPreferredColorScheme);
+// (2) Change theme color to match the the value of the `prefers-color-scheme` media query, unless a user preferred theme is defined.
+if (!localStorage.getItem(userPreferredThemeLocalStorageItem)) {
+  // (2 - 1) Do (2) on page load
+  changeThemeBasedOnPreferredColorScheme();
+
+  // (2 - 2) Do (2) on change in the value of the `prefers-color-scheme` media query
+  prefersDarkColorSchemeMediaQueryList.addEventListener('change', changeThemeBasedOnPreferredColorScheme);
+}
+
+// Updates the theme-related elements on page load, since the script applying the user preferred theme is in the HTML and does not call the `changeTheme` function (which calls the `updateThemeRelatedElements` function).
+updateThemeRelatedElements();
