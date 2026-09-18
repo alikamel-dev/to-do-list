@@ -167,6 +167,9 @@ a.icon-with-text, a[target="_blank"] {
 #page-footer .links-container > a:hover,
 #page-footer .links-container > a:focus-visible {
   color: var(--original-color, var(--brand-color));
+}
+
+#page-footer .links-container > a:focus-visible {
   outline-color: var(--original-color, var(--brand-color));
 }
 
