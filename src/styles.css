@@ -85,7 +85,8 @@
   transition-timing-function: ease-in-out;
 
   /* Allows transitions of `outline-color` to play correctly. */
-  outline-color: transparent;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 
   padding: 0;
   margin: 0;
@@ -100,8 +101,7 @@
 }
 
 *:focus-visible {
-  outline: 2px solid var(--foreground-color);
-  outline-offset: 2px;
+  outline-color: var(--foreground-color);
   
   border-radius: var(--default-border-radius);
 }
@@ -208,7 +208,7 @@ button, input, textarea, select {
 
   padding: 0;
 
-  outline: none;
+  outline-color: transparent;
 
   font: inherit;
 }
