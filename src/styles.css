@@ -4,57 +4,7 @@
 
 /* TODO: Resolve improper `outline-color` transitions. */
 
-/* (1) Display font - Junicode */
-
-/* Junicode Regular */
-@font-face {
-  font-family: 'Junicode';
-  src:  local('Junicode'),
-        url('assets/fonts/junicode/Junicode.woff2') format('woff2');
-
-  font-weight: normal;
-  font-style: normal;
-
-  font-display: swap;
-}
-
-/* Junicode Bold */
-@font-face {
-  font-family: 'Junicode';
-  src:  local('Junicode Bold'), local('Junicode-Bold'),
-        url('assets/fonts/junicode/Junicode-Bold.woff2') format('woff2');
-
-  font-weight: bold;
-  font-style: normal;
-
-  font-display: swap;
-}
-
-/* Junicode Italic */
-@font-face {
-  font-family: 'Junicode';
-  src:  local('Junicode Italic'), local('Junicode-Italic'),
-        url('assets/fonts/junicode/Junicode-Italic.woff2') format('woff2');
-
-  font-weight: normal;
-  font-style: italic;
-
-  font-display: swap;
-}
-
-/* Junicode Bold Italic */
-@font-face {
-  font-family: 'Junicode';
-  src:  local('Junicode Bold Italic'), local('Junicode-BoldItalic'),
-        url('assets/fonts/junicode/Junicode-BoldItalic.woff2') format('woff2');
-
-  font-weight: bold;
-  font-style: italic;
-
-  font-display: swap;
-}
-
-/* (2) Body font - Bricolage Grotesque */
+/* Bricolage Grotesque */
 
 /* Bricolage Grotesque (variable) */
 @font-face {
