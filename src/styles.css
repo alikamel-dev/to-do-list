@@ -573,8 +573,49 @@ body > * {
   justify-content: space-between;
   align-items: center;
 
+  position: relative;
+
   padding: 0;
   padding-left: 2%;
+}
+
+button.toggle-footer {
+  --width: 3.75rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  bottom: 100%;
+  left: calc(100% - var(--width));
+
+  width: var(--width);
+
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+
+  background-color: var(--brand-color);
+  color: var(--background-color);
+}
+
+button.toggle-footer svg {
+  width: 1.5em;
+}
+
+button.toggle-footer:hover {
+  filter: brightness(0.8);
+}
+
+button.toggle-footer:focus-visible {
+  border: var(--default-border);
+  border-bottom: none;
+
+  border-width: 2px;
+
+  border-color: var(--foreground-color);
+
+  outline-color: transparent;
 }
 
 #footer-text, #footer-text > * {
