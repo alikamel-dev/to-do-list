@@ -72,19 +72,16 @@
 
   /* (1 - A) System font stacks */
 
-  /* (1) System font stack for transitional fonts (Junicode) — see notes at https://github.com/system-fonts/modern-font-stacks?tab=readme-ov-file#transitional */
-  --display-system-font-stack: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
+  /* (1) System font stack for neo-grotesque fonts (Bricolage Grotesque) — see notes at https://github.com/system-fonts/modern-font-stacks?tab=readme-ov-file#neo-grotesque */
+  --neo-grotesque-font-stack: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
 
-  /* (2) System font stack for neo-grotesque fonts (Bricolage Grotesque) — see notes at https://github.com/system-fonts/modern-font-stacks?tab=readme-ov-file#neo-grotesque */
-  --body-system-font-stack: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
-
-  /* (3) System font stack to render native emojis — refer to https://github.com/system-fonts/modern-font-stacks?tab=readme-ov-file#emoji-support */
+  /* (2) System font stack to render native emojis — refer to https://github.com/system-fonts/modern-font-stacks?tab=readme-ov-file#emoji-support */
   --native-emoji-font-stack: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
   /* (1 - B) Site fonts */
 
-  --display-font: 'Junicode', var(--display-system-font-stack), var(--native-emoji-font-stack);
-  --body-font: 'Bricolage Grotesque', var(--body-system-font-stack), var(--native-emoji-font-stack);
+  --display-font: 'Bricolage Grotesque', var(--neo-grotesque-font-stack), var(--native-emoji-font-stack);
+  --body-font: 'Bricolage Grotesque', var(--neo-grotesque-font-stack), var(--native-emoji-font-stack);
 
   /* Make the computed value of `1rem` equal to `10px`, without overriding the user-preferred font size */
   font-size: 62.5%;
@@ -133,7 +130,7 @@
   box-sizing: border-box;
 
   /* Default values for transition properties that may be overridden in subsequent rulesets. */
-  transition-property: background-color, color, border-color, outline-color;
+  transition-property: background-color, color, border-color, outline-color, filter;
   transition-duration: 0.3s;
   transition-timing-function: ease-in-out;
 
@@ -173,6 +170,9 @@
 }
 
 button {
+  display: flex;
+  align-items: center;
+
   cursor: pointer;
 
   user-select: none;
@@ -315,19 +315,9 @@ ul.no-marker, ol.no-marker, dl.no-marker {
   align-items: center;
 }
 
-.button-link-row > * {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
+.button-link-row svg {
   aspect-ratio: 1 / 1;
   height: 100%;
-}
-
-.interactive-item-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .inverted-color-scheme {
@@ -462,12 +452,6 @@ body > * {
   margin-top: var(--margin-top);
 }
 
-.button-link-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 /* (2) Main styles */
 
 #page-main {
@@ -548,6 +532,81 @@ body > * {
 
 #sidebar hr {
   border: var(--default-border);
+}
+
+#main-content {
+  display: flex;
+
+  padding: 16px 1.25%;
+}
+
+.empty-state-message {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  margin: auto;
+}
+
+.empty-state-message > *:not(.empty-state-message-icon) {
+  --margin-left: 4px;
+
+  /* Make text centered on zoom. */
+  text-align: center;
+
+  margin-left: var(--margin-left);
+}
+
+.empty-state-message-icon {
+  width: 10em;
+}
+
+.empty-state-message-actions {
+  margin-top: 16px;
+  margin-left: calc(var(--margin-left) + 6px);
+    
+  gap: 0.5em;
+}
+
+.empty-state-message-actions > button {
+  --padding: 4px;
+
+  gap: 0.25em;
+
+  padding: var(--padding);
+  padding-right: calc(var(--padding) + 4px);
+
+  background-color: transparent;
+  color: var(--brand-color);
+}
+
+.empty-state-message-actions > button.primary {
+  background-color: var(--brand-color);
+  color: var(--background-color);
+}
+
+:root.light .empty-state-message-actions>button:not(.primary) {
+  color: var(--brand-color-dark);
+}
+
+.empty-state-message-actions > button:hover {
+  filter: brightness(0.85);
+}
+
+.empty-state-message-actions > button:not(.primary):hover {
+  background-color: var(--muted-color);
+}
+
+.empty-state-message-actions > button:active {
+  filter: none;
+}
+
+.empty-state-message-actions > button > svg {
+  width: 1.45em;
+
+  fill: currentColor;
 }
 
 /* (3) Footer styles */
