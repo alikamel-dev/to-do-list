@@ -115,6 +115,11 @@
   color: var(--background-color);
 }
 
+.inverted-color-scheme *::selection {
+  background-color: var(--background-color);
+  color: var(--foreground-color);
+}
+
 *:disabled {
   cursor: not-allowed;
 }
