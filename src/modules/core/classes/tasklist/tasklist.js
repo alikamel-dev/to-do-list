@@ -1,8 +1,8 @@
-import { validateDataType } from "../../utils/validateDataType";
-import { TasklistPrototype } from "./base/base";
+import { validateDataType } from "../../../utils/validateDataType";
+import { TasklistPrototype } from "../base/base";
 
 import PubSub from "pubsub-js";
-import { topic_taskAddedTo, topic_taskRemovedFrom } from "./topics";
+import { topic_taskAddedTo, topic_taskRemovedFrom } from "../topics";
 
 const Tasklist = class extends TasklistPrototype {
   // Private elements commented out are those inherited from `TasklistPrototype`.

@@ -5,6 +5,7 @@ import { markAsCode } from "../../../utils/formatCode";
 
 import PubSub from "pubsub-js";
 import { topic_taskAddedTo, topic_taskRemovedFrom } from "../topics";
+import { DEFAULT_TASKLIST } from "../tasklist/defaultTasklist";
 
 const Task = class extends TaskPrototype {
   // Private elements commented out are those inherited from `TaskPrototype`.
@@ -100,30 +101,30 @@ const Task = class extends TaskPrototype {
   // Accessors for tasklist
 
   get tasklist() {
-    return this.#tasklist;
+    return this.#tasklist === DEFAULT_TASKLIST ? null : this.#tasklist;
   }
 
   get isInATasklist() {
-    // This function is called by the `tasklist` setter, which is used in the constructor before `this.#tasklist` is assigned a value.
-    return (this.#tasklist) && (this.#tasklist !== null);
+    return this.tasklist !== null;
   }
 
+  // Methods `#publishTaskAddition` and `#publishTaskRemoval` are used by the setter `tasklist`, which is in turn used by the constructor before `this.#tasklist` has a value, hence the conditional statement at the start of each's definition.
+
   #publishTaskAddition() {
-    if (!this.isInATasklist)
+    if (!this.#tasklist)
       return;
 
     PubSub.publishSync(topic_taskAddedTo(this.#tasklist), this);
   }
 
   #publishTaskRemoval() {
-    if (!this.isInATasklist)
+    if (!this.#tasklist)
       return;
 
     PubSub.publishSync(topic_taskRemovedFrom(this.#tasklist), this);
   }
 
   set tasklist(newTasklist) {
-    // Validate the data type of `newTasklist` first before making any changes
     validateDataType(newTasklist, 'tasklist', ['Tasklist', 'Null']);
 
     // Prevents unnecessary publishing of topics
@@ -134,7 +135,7 @@ const Task = class extends TaskPrototype {
 
     this.#publishTaskRemoval();
 
-    this.#tasklist = newTasklist;
+    this.#tasklist = newTasklist ?? DEFAULT_TASKLIST;
 
     this.#publishTaskAddition();
   }
