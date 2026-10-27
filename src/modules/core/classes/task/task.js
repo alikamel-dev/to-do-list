@@ -23,7 +23,7 @@ const Task = class extends TaskPrototype {
 
   // #isCompleted;
 
-  constructor(title, description = null, dueDate = null, priority = null, notes = null, subtasks = null, tasklist = null) {
+  constructor({ title, description = null, dueDate = null, priority = null, notes = null, subtasks = null, tasklist = null }) {
     super();
 
     // `Object.assign` invokes setters on the target object when overwriting existing properties. This is intentional, to enforce argument validation on instantiation.

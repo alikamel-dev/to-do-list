@@ -1,11 +1,11 @@
-import { validateDataType, validateDataTypeOfArrayValues } from "../../utils/validateDataType";
+import { validateDataType } from "../../utils/validateDataType";
 import { TasklistPrototype } from "./base/base";
 
 import PubSub from "pubsub-js";
 import { topic_taskAddedTo, topic_taskRemovedFrom } from "./topics";
 
 const Tasklist = class extends TasklistPrototype {
-  // Private elements commented out are those inherited from `TasklistPrototype`
+  // Private elements commented out are those inherited from `TasklistPrototype`.
 
   // #id;
 
@@ -14,7 +14,7 @@ const Tasklist = class extends TasklistPrototype {
 
   #tasks;
 
-  constructor(title, description = null) {
+  constructor({ title, description = null }) {
     super();
 
     // `Object.assign` invokes setters on the target object when overwriting existing properties. This is intentional, to enforce argument validation on instantiation.
@@ -95,7 +95,7 @@ const Tasklist = class extends TasklistPrototype {
   }
 
   set tasks(newTasks) {
-    // TODO: Improve the performance of this method.
+    // TODO: Improve the performance of this method
 
     this.removeAllTasks();
     this.addTasks(newTasks);
@@ -118,7 +118,7 @@ const Tasklist = class extends TasklistPrototype {
     this.#tasks.splice(indexOfTask, 1);
   }
 
-  // Method to initiate subscriptions on class instantiation.
+  // Method to initiate subscriptions on class instantiation
   #initiateSubscriptions() {
     PubSub.subscribe(topic_taskAddedTo(this), this.#subscriber_taskAdded.bind(this));
     PubSub.subscribe(topic_taskRemovedFrom(this), this.#subscriber_taskRemoved.bind(this));

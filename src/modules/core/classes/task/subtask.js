@@ -8,7 +8,7 @@ const Subtask = class extends SubtaskPrototype {
   
   // #isComplete;
 
-  constructor(title) {
+  constructor({ title }) {
     super();
 
     // `Object.assign` invokes setters on the target object when overwriting existing properties. This is intentional, to enforce argument validation on instantiation.
