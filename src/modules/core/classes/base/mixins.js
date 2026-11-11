@@ -15,21 +15,7 @@ const newMixinError = (Mixin) => {
 
 // Read more in section "Constructors and Initialization" of the following article: https://justinfagnani.com/2015/12/21/real-mixins-with-javascript-classes/.
 
-// Mixin for ID field
-const idMixin = (Base = class {}) => class IdMixin extends Base {
-  #id;
-
-  constructor() {
-    if (new.target === IdMixin)
-      throw newMixinError(IdMixin);
-
-    super();
-
-    this.#id = crypto.randomUUID();
-  }
-
-  get id() { return this.#id; }
-}
+// ID field is defined for each class as it requires a private setter to be used on constructing an instance of a class from a JSON object,.
 
 // Mixin for title field
 const titleMixin = (Base = class {}) => class TitleMixin extends Base {
@@ -106,7 +92,6 @@ const isCompleteMixin = (Base = class {}) => class IsCompleteMixin extends Base 
 }
 
 export {
-  idMixin,
   titleMixin,
   descriptionMixin,
   isCompleteMixin,

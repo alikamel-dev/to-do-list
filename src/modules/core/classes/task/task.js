@@ -2,13 +2,14 @@ import { TaskPrototype } from "../base/base";
 
 import { getDataTypeOf, validateDataType, validateDataTypeOfArrayValues } from "../../../utils/validateDataType";
 import { markAsCode } from "../../../utils/formatCode";
-
-import PubSub from "pubsub-js";
-import { topic_taskAddedTo, topic_taskRemovedFrom } from "../topics";
-import { DEFAULT_TASKLIST } from "../tasklist/defaultTasklist";
+import { generateId } from "../base/generateId";
+import { taskManager } from "../taskManager";
+import { Subtask } from "./subtask";
 
 const Task = class extends TaskPrototype {
-  // Private elements commented out are those inherited from `TaskPrototype`.
+  // Private elements commented out are those inherited from the mixin.
+
+  #id;
 
   // #title;
   // #description;
@@ -20,15 +21,18 @@ const Task = class extends TaskPrototype {
 
   #subtasks;
 
-  #tasklist;
+  // Read-only field whose value is the tasklist to which the task belongs, or `null` if none. The value is internally updated when the tasklist is added or removed from a tasklist.
+  #tasklist = null;
 
-  // #isCompleted;
+  // #isComplete;
 
-  constructor({ title, description = null, dueDate = null, priority = null, notes = null, subtasks = null, tasklist = null }) {
+  constructor({ title, description = null, dueDate = null, priority = null, notes = null, subtasks = null }) {
     super();
 
+    this.#id = generateId();
+
     // `Object.assign` invokes setters on the target object when overwriting existing properties. This is intentional, to enforce argument validation on instantiation.
-    Object.assign(this, { title, description, dueDate, priority, notes, subtasks, tasklist });
+    Object.assign(this, { title, description, dueDate, priority, notes, subtasks });
 
     // `Object.assign` does not perform deep cloning of objects, which is acceptable for this class.
 
@@ -44,7 +48,15 @@ const Task = class extends TaskPrototype {
   // Accessors
   // ---------
 
+  // Accessors for ID
+
+  get id() {
+    return this.#id;
+  }
+
   // Accessors for due date
+
+  // TODO: Improve date format if needed.
 
   get dueDate() {
     // Return a deep copy of the `Date` object to prevent mutations.
@@ -68,7 +80,7 @@ const Task = class extends TaskPrototype {
     if (getDataTypeOf(newPriority) === 'Number' && !Number.isInteger(newPriority))
       throw new TypeError(`priority can only be represented by a ${markAsCode('Number')} representing an integer.`);
 
-    // `Number.isInteger` returns `true` for some floating point numbers. Refer to https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger#description
+    // `Number.isInteger` returns `true` for some floating point numbers. Refer to https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger#description.
     this.#priority = Math.trunc(newPriority);
   }
 
@@ -101,47 +113,52 @@ const Task = class extends TaskPrototype {
   // Accessors for tasklist
 
   get tasklist() {
-    return this.#tasklist === DEFAULT_TASKLIST ? null : this.#tasklist;
+    return this.#tasklist;
   }
 
-  get isInATasklist() {
-    return this.tasklist !== null;
+  // JSON-related methods
+
+  // Used internally by `JSON.stringify()`.
+  toJSON() {
+    return {
+      // Facilitates identification of type of source object.
+      type: 'task',
+
+      id: this.id,
+
+      title: this.title,
+      description: this.description,
+
+      dueDate: this.dueDate,
+      priority: this.priority,
+
+      notes: this.notes,
+
+      subtasks: this.subtasks,
+
+      isComplete: this.isComplete,
+
+      // If the task is in a tasklist, serialize the tasklist ID, else, serialize `null`.
+      tasklist: this.tasklist?.id ?? null,
+    }
   }
 
-  // Methods `#publishTaskAddition` and `#publishTaskRemoval` are used by the setter `tasklist`, which is in turn used by the constructor before `this.#tasklist` has a value, hence the conditional statement at the start of each's definition.
+  static fromJSON(JSONTask) {
+    const JSONTaskObject = JSON.parse(JSONTask);
 
-  #publishTaskAddition() {
-    if (!this.#tasklist)
-      return;
+    // Convert plain objects representing class instances to the correct class before construction.
+    JSONTaskObject.subtasks = JSONTaskObject.subtasks.map(JSONSubtaskObject => Subtask.fromJSON(JSON.stringify(JSONSubtaskObject)));
 
-    PubSub.publishSync(topic_taskAddedTo(this.#tasklist), this);
-  }
+    const task = new Task(JSONTaskObject);
 
-  #publishTaskRemoval() {
-    if (!this.#tasklist)
-      return;
+    // Private elements are visible in the class scope, not the class instance scope, so a method of a class can access the private elements of any instance of this class.    
+    task.#id = JSONTaskObject.id;
 
-    PubSub.publishSync(topic_taskRemovedFrom(this.#tasklist), this);
-  }
+    task.isComplete = JSONTaskObject.isComplete;
 
-  set tasklist(newTasklist) {
-    validateDataType(newTasklist, 'tasklist', ['Tasklist', 'Null']);
+    task.#tasklist = task.tasklist !== null ? taskManager.getTasklist(JSONTaskObject.tasklist) : null;
 
-    // Prevents unnecessary publishing of topics
-    if (this.#tasklist === newTasklist)
-      return;
-
-    // `publishSync` used instead of `publish` as the latter (asynchronous) prevents subscribers from adding or removing tasks.
-
-    this.#publishTaskRemoval();
-
-    this.#tasklist = newTasklist ?? DEFAULT_TASKLIST;
-
-    this.#publishTaskAddition();
-  }
-
-  removeFromCurrentTasklist() {
-    this.tasklist = null;
+    return task;
   }
 }
 

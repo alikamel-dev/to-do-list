@@ -1,9 +1,9 @@
 import { descriptionMixin, idMixin, isCompleteMixin, titleMixin } from "./mixins";
 
-const TaskPrototype = isCompleteMixin(descriptionMixin(titleMixin(idMixin())));
+const TaskPrototype = isCompleteMixin(descriptionMixin(titleMixin()));
 
-const SubtaskPrototype = isCompleteMixin(titleMixin(idMixin()));
+const SubtaskPrototype = isCompleteMixin(titleMixin());
 
-const TasklistPrototype = descriptionMixin(titleMixin(idMixin()));
+const TasklistPrototype = descriptionMixin(titleMixin());
 
 export { TaskPrototype, SubtaskPrototype, TasklistPrototype };
