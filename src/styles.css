@@ -182,6 +182,9 @@ a.icon-with-text, a[target="_blank"] {
   /* The brand color has poor contrast with the footer background color in dark theme. */
 
   color: var(--original-color, var(--background-color));
+}
+
+:root.dark #page-footer .links-container > a:focus-visible {
   outline-color: var(--original-color, var(--background-color));
 }
 
