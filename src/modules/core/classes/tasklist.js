@@ -1,8 +1,10 @@
 import { validateDataType } from "../../utils/validateDataType";
+import { publishTopic, subscribeToTopic } from "../TopicPubSub";
 import { TasklistPrototype } from "./base/base";
 
 import { generateId } from "./base/generateId";
 import { Task } from "./task/task";
+import { generateTaskMovedTopic, publishTaskMovedTopic, taskMovedTopic } from "./taskManager/topic_taskMoved";
 
 const Tasklist = class extends TasklistPrototype {
   // Private elements commented out are those inherited from `TasklistPrototype`.
@@ -25,6 +27,9 @@ const Tasklist = class extends TasklistPrototype {
     // `Object.assign` does not perform deep cloning of objects, which is acceptable for this class.
 
     this.#tasks = [];
+
+    // Initiate subscriptions of some private methods to relevant PubSub topics.
+    this.#initiateSubscriptions();
 
     // Make class and objects instantiated from it immutable except for changing values of properties.
     Object.seal(this);
@@ -70,6 +75,47 @@ const Tasklist = class extends TasklistPrototype {
     validateDataType(id, 'id', ['String']);
 
     return this.#tasks.some(task => task.id === id);
+  }
+
+  // Subscriber methods called using PubSub
+
+  #subscriber_addTask(msg, data) {
+    const { task, sourceTasklist, destinationTasklist } = data;
+
+    const isNotDestinationTasklist = this.id !== (destinationTasklist?.id ?? null);
+    const containsTask = this.containsTask(task);
+
+    const cannotAddTask = (isNotDestinationTasklist || containsTask);
+
+    if (cannotAddTask)
+      return;
+
+    this.#tasks.push(task);
+
+    publishTaskMovedTopic(task, sourceTasklist, destinationTasklist, true);
+  }
+
+  #subscriber_removeTask(msg, data) {
+    const { task, sourceTasklist, destinationTasklist } = data;
+
+    const isNotSourceTasklist = this.id !== (sourceTasklist?.id ?? null);
+    const doesNotContainTask = !this.containsTask(task);
+
+    const cannotRemoveTask = (isNotSourceTasklist || doesNotContainTask);
+
+    if (cannotRemoveTask)
+      return;
+
+    const indexOfTask = this.#tasks.indexOf(task);
+    this.#tasks.splice(indexOfTask, 1);
+
+    publishTaskMovedTopic(task, sourceTasklist, destinationTasklist, true);
+  }
+
+  // Initiates subscriptions of subscriber methods to relevant PubSub topics.
+  #initiateSubscriptions() {
+    subscribeToTopic(this.#subscriber_addTask.bind(this), taskMovedTopic);
+    subscribeToTopic(this.#subscriber_removeTask.bind(this), taskMovedTopic);
   }
 
   // JSON-related methods

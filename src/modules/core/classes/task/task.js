@@ -3,8 +3,10 @@ import { TaskPrototype } from "../base/base";
 import { getDataTypeOf, validateDataType, validateDataTypeOfArrayValues } from "../../../utils/validateDataType";
 import { markAsCode } from "../../../utils/formatCode";
 import { generateId } from "../base/generateId";
-import { taskManager } from "../taskManager";
+import { taskManager } from "../taskManager/taskManager";
 import { Subtask } from "./subtask";
+import { subscribeToTopic } from "../../TopicPubSub";
+import { taskMovedTopic } from "../taskManager/topic_taskMoved";
 
 const Task = class extends TaskPrototype {
   // Private elements commented out are those inherited from the mixin.
@@ -35,6 +37,9 @@ const Task = class extends TaskPrototype {
     Object.assign(this, { title, description, dueDate, priority, notes, subtasks });
 
     // `Object.assign` does not perform deep cloning of objects, which is acceptable for this class.
+
+    // Initiate subscriptions of some private methods to relevant PubSub topics.
+    this.#initiateSubscriptions();
 
     // Make class and objects instantiated from it immutable except for changing values of properties.
     Object.seal(this);
@@ -114,6 +119,19 @@ const Task = class extends TaskPrototype {
 
   get tasklist() {
     return this.#tasklist;
+  }
+
+  // Subscriber methods called using PubSub
+
+  #subscriber_setTasklist(msg, data) {
+    const { destinationTasklist } = data;
+
+    this.#tasklist = destinationTasklist;
+  }
+
+  // Initiate subscriptions of some private methods to relevant PubSub topics.
+  #initiateSubscriptions() {
+    subscribeToTopic(this.#subscriber_setTasklist.bind(this), `${taskMovedTopic}.${this.id}`);
   }
 
   // JSON-related methods

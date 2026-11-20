@@ -91,6 +91,10 @@ const isCompleteMixin = (Base = class {}) => class IsCompleteMixin extends Base 
   }
 }
 
+// Mixin for object comparison method
+
+// TODO: Implement mixin for object comparison method.
+
 export {
   titleMixin,
   descriptionMixin,
