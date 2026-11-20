@@ -10,7 +10,29 @@ const TaskManager = class {
 
   #tasklists = [ this.#defaultTasklist ];
 
-  // TODO: Create validation methods to throw required errors.
+  // Validation methods used in the task manager operations (addition and removal of tasklists and tasks). No errors thrown for attempt to add an already existing tasklist or task; the addition method simply returns.
+  #validationMethods = {
+    validateTasklistIsInTaskManager: (tasklist) => {
+      const isTasklistInTaskManager = this.containsTasklist(tasklist);
+
+      if (!isTasklistInTaskManager)
+        throw new Error(`Tasklist of ID ${tasklist.id} does not exist in the task manager.`);
+    },
+
+    validateTaskIsInTaskManager: (task) => {
+      const isTaskInTaskManager = this.containsTask(task);
+
+      if (!isTaskInTaskManager)
+        throw new Error(`Task of ID ${task.id} does not exist in the task manager.`);
+    },
+
+    validateTasklistIsNotDefaultTasklist: (tasklist) => {
+      const isTasklistDefaultTasklist = tasklist === this.#defaultTasklist;
+
+      if (isTasklistDefaultTasklist)
+        throw new Error(`Cannot remove the default tasklist from the task manager.`)
+    },
+  }
 
   // Makes a call of `Object.prototype.toString.call` on an instance of `TaskManager` return `[Object TaskManager]`. Required for type validation.
   get [Symbol.toStringTag]() {
@@ -123,14 +145,8 @@ const TaskManager = class {
     validateDataTypeOfArrayValues(tasklists, 'tasklists', ['Tasklist']);
 
     tasklists.forEach((tasklist) => {
-      const isTasklistInTaskManager = this.containsTasklist(tasklist);
-      const isTasklistNotTheDefaultTasklist = (tasklist !== this.#defaultTasklist);
-
-      const isTasklistValid = isTasklistInTaskManager && isTasklistNotTheDefaultTasklist;
-
-      // TODO: Throw an error if more appropriate.
-      if (!isTasklistValid)
-        return;
+      this.#validationMethods.validateTasklistIsInTaskManager(tasklist);
+      this.#validationMethods.validateTasklistIsNotDefaultTasklist(tasklist);
 
       const tasklistIndex = this.#tasklists.indexOf(tasklist);
       this.#tasklists.splice(tasklistIndex, 1);
@@ -139,17 +155,15 @@ const TaskManager = class {
 
   // Methods to add, remove, and move tasks to or from tasklists
 
-  moveTasksTo(destinationTasklist, ...tasks) {
+  // Adds tasks that are in or not in the task manager to the destination tasklist (if equal to `null`, tasks are removed from the task manager).
+  addTasksTo(destinationTasklist, ...tasks) {
     validateDataType(destinationTasklist, 'destinationTasklist', ['Tasklist', 'Null']);
     validateDataTypeOfArrayValues(tasks, 'tasks', ['Task']);
 
     const isDestinationTasklistNull = (destinationTasklist === null);
 
-    const isDestinationTasklistValid = isDestinationTasklistNull || this.containsTasklist(destinationTasklist);
-
-    // TODO: Throw an error if more appropriate.
-    if (!isDestinationTasklistValid)
-      return;
+    if (!isDestinationTasklistNull)
+      this.#validationMethods.validateTasklistIsInTaskManager(destinationTasklist);
 
     tasks.forEach((task) => {
       const sourceTasklist = task.tasklist;
@@ -157,16 +171,31 @@ const TaskManager = class {
     });
   }
 
-  moveTasksToDefaultTasklist(...tasks) {
-    this.moveTasksTo(this.#defaultTasklist, ...tasks);
+  // Adds tasks that are in or not in the task manager to the default tasklist.
+  addTasksToDefaultTasklist(...tasks) {
+    this.addTasksTo(this.#defaultTasklist, ...tasks);
   }
 
+  // Adds tasks that are not in the task manager to the default tasklist.
   addTasks(...tasks) {
-    this.moveTasksTo(this.#defaultTasklist, ...tasks);
+    tasks.forEach(task => {
+      const isTaskInTaskManager = this.containsTask(task);
+
+      // TODO: Throw an error if more appropriate.
+      if (isTaskInTaskManager)
+        return;
+
+      this.addTasksTo(this.#defaultTasklist, task);
+    });
   }
 
+  // Removes tasks from the task manager.
   removeTasks(...tasks) {
-    this.moveTasksTo(null, ...tasks);
+    tasks.forEach(task => {
+      this.#validationMethods.validateTaskIsInTaskManager(task);
+
+      this.addTasksTo(null, task);
+    });
   }
 
   // JSON-related methods
