@@ -102,6 +102,9 @@ const Task = class extends TaskPrototype {
   // Accessors for subtasks
 
   get subtasks() {
+    if (this.#subtasks === null)
+      return null;
+
     // Return a copy of the array to prevent mutation
     return Array.from(this.#subtasks);
   };
@@ -138,7 +141,7 @@ const Task = class extends TaskPrototype {
 
   // Used internally by `JSON.stringify()`.
   toJSON() {
-    return {
+    return JSON.stringify({
       // Facilitates identification of type of source object.
       type: 'task',
 
@@ -158,14 +161,14 @@ const Task = class extends TaskPrototype {
 
       // If the task is in a tasklist, serialize the tasklist ID, else, serialize `null`.
       tasklist: this.tasklist?.id ?? null,
-    }
+    });
   }
 
   static fromJSON(JSONTask) {
     const JSONTaskObject = JSON.parse(JSONTask);
 
     // Convert plain objects representing class instances to the correct class before construction.
-    JSONTaskObject.subtasks = JSONTaskObject.subtasks.map(JSONSubtaskObject => Subtask.fromJSON(JSON.stringify(JSONSubtaskObject)));
+    JSONTaskObject.subtasks = JSONTaskObject.subtasks?.map(JSONSubtaskObject => Subtask.fromJSON(JSONSubtaskObject));
 
     const task = new Task(JSONTaskObject);
 

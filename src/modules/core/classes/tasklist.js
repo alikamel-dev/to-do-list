@@ -122,7 +122,7 @@ const Tasklist = class extends TasklistPrototype {
 
   // Used internally by `JSON.stringify()`.
   toJSON() {
-    return {
+    return JSON.stringify({
       // Facilitates the identification of the type of the source object.
       type: 'tasklist',
 
@@ -132,7 +132,7 @@ const Tasklist = class extends TasklistPrototype {
       description: this.description,
 
       tasks: this.tasks,
-    }
+    });
   }
 
   static fromJSON(JSONTasklist) {
@@ -143,7 +143,7 @@ const Tasklist = class extends TasklistPrototype {
     // Private elements are visible in the class scope, not the class instance scope, so a method of a class can access the private elements of any instance of this class.    
     tasklist.#id = JSONTasklistObject.id;
 
-    tasklist.#tasks = JSONTasklistObject.tasks.map(JSONTaskObject => Task.fromJSON(JSON.stringify(JSONTaskObject)));
+    tasklist.#tasks = JSONTasklistObject.tasks.map(JSONTaskObject => Task.fromJSON(JSONTaskObject));
 
     return tasklist;
   }

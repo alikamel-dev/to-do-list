@@ -202,13 +202,13 @@ const TaskManager = class {
 
   // Used internally by `JSON.stringify()`.
   toJSON() {
-    return {
+    return JSON.stringify({
       // Facilitates identification of type of source object.
       type: 'taskManager',
 
       tasklists: this.#tasklists,
       defaultTasklist: this.#defaultTasklist.id,
-    };
+    });
   }
 
   fromJSON(JSONTaskManager) {
@@ -216,7 +216,7 @@ const TaskManager = class {
 
     // There is supposed to be exactly one task manager for the entire application, so constructing a new `TaskManager` object makes no sense.
 
-    this.#tasklists = JSONTaskManagerObject.tasklists.map(JSONTasklistObject => Tasklist.fromJSON(JSON.stringify(JSONTasklistObject)));
+    this.#tasklists = JSONTaskManagerObject.tasklists.map(JSONTasklistObject => Tasklist.fromJSON(JSONTasklistObject));
     this.#defaultTasklist = this.getTasklist(JSONTaskManagerObject.defaultTasklist);
 
     return this;

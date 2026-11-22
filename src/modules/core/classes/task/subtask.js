@@ -40,7 +40,7 @@ const Subtask = class extends SubtaskPrototype {
 
   // Used internally by `JSON.stringify()`.
   toJSON() {
-    return {
+    return JSON.stringify({
       type: 'subtask',
 
       id: this.id,
@@ -48,7 +48,7 @@ const Subtask = class extends SubtaskPrototype {
       title: this.title,
 
       isComplete: this.isComplete,
-    }
+    });
   }
 
   static fromJSON(JSONSubtask) {
