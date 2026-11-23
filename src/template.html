@@ -45,6 +45,8 @@
   <body>
     <!-- Inline SVGs -->
 
+    <!-- TODO: Include SVGs that need not be inlined as external SVGs for better performance. -->
+
     <!-- `aria-hidden="true"` ensures that all screen readers will ignore the element under all circumstances. -->
     <svg xmlns="http://www.w3.org/2000/svg" id="inline-svgs" style="display: none;" aria-hidden="true">
       <defs>
@@ -350,6 +352,8 @@
         </template>
       </div>
     </main>
+
+    <!-- Replace `span` elements used to announce section titles in footer with appropriate section heading elements -->
 
     <footer id="page-footer" class="inverted-color-scheme">
       <button type="button" class="toggle-footer" data-function="toggle-footer">

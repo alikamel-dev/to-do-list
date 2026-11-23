@@ -1,10 +1,8 @@
 /* Fonts */
 
-/* TODO: Remove unneeded fonts. */
-
-/* TODO: Resolve improper `outline-color` transitions. */
-
 /* Bricolage Grotesque */
+
+/* TODO: Replace variable font files with static font files if possible. */
 
 /* Bricolage Grotesque (variable) */
 @font-face {
@@ -168,6 +166,8 @@ a.icon-with-text, a[target="_blank"] {
 
   gap: 0.15em;
 }
+
+/* TODO: Use `attr(data-original-color)` instead of `var(--original-color, var(--brand-color))` when browser support is suitable. */
 
 #page-footer .links-container > a:hover,
 #page-footer .links-container > a:focus-visible {

@@ -177,6 +177,7 @@ const Task = class extends TaskPrototype {
 
     task.isComplete = JSONTaskObject.isComplete;
 
+    // TODO: Remove the tight coupling to the task manager here.
     task.#tasklist = task.tasklist !== null ? taskManager.getTasklist(JSONTaskObject.tasklist) : null;
 
     return task;
