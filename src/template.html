@@ -31,6 +31,8 @@
 
     <title>Tasks | MinimaList</title>
 
+    <!-- TODO: Prevent FOIT by moving the logic to change the theme based on the `prefers-color-scheme` media feature here, if possible. -->
+
     <!-- Applies the saved user-preferred theme in the user agent's local storage before the CSS is rendered, preventing Flash of Incorrect Theme (FOIT). -->
     <script type="text/javascript" id="apply-user-preferred-theme">
       const availableThemes = [ 'light', 'dark' ];
@@ -350,6 +352,35 @@
             </div>
           </div>
         </template>
+
+        <div class="main-content-wrapper">
+          <h2 class="main-content-title">
+            <span class="main-content-title-name">
+              <!-- Name of the current tab -->
+            </span>
+
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="main-content-title-icon">
+              <!-- <use href=""></use> -->
+            </svg>
+          </h2>
+
+          <div class="main-content-body">
+            <ul class="main-content-list tasks no-marker" style="display: none;">
+              <template id="task-list-item-template">
+                <!-- TODO: Add other details to the task list item. The Odin Project recommends the due date and a control to change the priority. -->
+
+                <li class="task">
+                  <label for="">
+                    <input type="checkbox" name="" id="" class="task-completed-checkbox"/>
+
+                    <span class="task-title">
+                    </span>
+                  </label>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </div>
       </div>
     </main>
 
